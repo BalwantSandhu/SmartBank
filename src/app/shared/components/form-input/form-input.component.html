@@ -1,0 +1,28 @@
+<div class="form-field">
+  <label *ngIf="label" [attr.for]="label">
+    {{ label }}
+    <span class="required" *ngIf="control?.hasError('required')">*</span>
+  </label>
+  
+  <div class="input-wrapper" [class.has-prefix]="prefix" [class.has-suffix]="suffix">
+    <span class="prefix" *ngIf="prefix">{{ prefix }}</span>
+    
+    <input
+      [type]="inputType"
+      [id]="label"
+      [formControl]="control"
+      [placeholder]="placeholder"
+      [class.error]="showErrors()"
+    />
+    
+    <span class="suffix" *ngIf="suffix">{{ suffix }}</span>
+  </div>
+
+  <div class="field-hint" *ngIf="hint && !showErrors()">
+    {{ hint }}
+  </div>
+
+  <div class="error-message" *ngIf="showErrors()">
+    {{ getErrorMessage() }}
+  </div>
+</div>
