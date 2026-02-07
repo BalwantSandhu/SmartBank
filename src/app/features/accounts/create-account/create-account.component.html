@@ -9,7 +9,7 @@
            ✓ {{ successMessage }}
         </div>
 
-        <form [formGroup]="accountForm" >
+        <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
 
             <app-form-input
                 [control]="$any(accountForm.get('accountHolderName'))"

@@ -72,6 +72,31 @@ export class CreateAccountComponent {
     return this.accountForm.get('accountType')?.value;
   }
 
+  onSubmit(){
+    if(this.accountForm.invalid){
+      this.accountForm.markAllAsTouched;
+      return;
+    }
+
+    try{
+      const formValue = this.accountForm.getRawValue();
+      const newAccount = this.accountService.createAccount({
+        accountHolderName:formValue.accountHolderName,
+        accountType: formValue.accountType,
+        balance: parseFloat(formValue.balance)
+      })
+      
+      this.successMessage = `Account ${newAccount.accountNumber} created successfully!`;
+      this.showSuccess = true;
+
+      setTimeout(() => {
+        this.goBack()
+      }, 2000);
+    } catch(error){
+      console.error('Error creating account:', error);
+    }
+  }
+
   goBack(): void{
     this.router.navigate(['/dashboard']);
   }
