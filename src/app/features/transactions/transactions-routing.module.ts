@@ -10,9 +10,10 @@ const routes: Routes = [
   },
   {
     path: 'history',
-    loadComponent: () =>
-    import('./transaction-history/transaction-history.component')
-    .then(c => c.TransactionHistoryComponent)
+    component: TransactionHistoryComponent
+    // loadComponent: () =>
+    // import('./transaction-history/transaction-history.component')
+    // .then(c => c.TransactionHistoryComponent)
   },
   {
     path: '',

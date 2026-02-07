@@ -5,6 +5,9 @@ import { CustomCurrencyPipe } from './pipes/custom-currency.pipe';
 import { AccountTypePipe } from './pipes/account-type.pipe';
 import { TransactionFilterPipe } from './pipes/transaction-filter.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormInputComponent } from './components/form-input/form-input.component';
+import { RadioGroupComponent } from './components/radio-group/radio-group.component';
+import { FormSelectComponent } from './components/form-select/form-select.component';
 
 
 
@@ -13,7 +16,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     CustomButtonComponent,
     CustomCurrencyPipe,
     AccountTypePipe,
-    TransactionFilterPipe
+    TransactionFilterPipe,
+    FormInputComponent,
+    RadioGroupComponent,
+    FormSelectComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +31,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     AccountTypePipe,
     TransactionFilterPipe,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormInputComponent,
+    RadioGroupComponent,
+    FormSelectComponent
   ]
 })
 export class SharedModule { }

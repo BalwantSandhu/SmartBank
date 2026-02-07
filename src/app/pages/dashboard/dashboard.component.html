@@ -1,1 +1,54 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>Banking Dashboard</h1>
+        <p class="subtitle">Manage your account and transactions</p>
+    </div>
+
+    <!-- Statistics card -->
+     <div class="dashboard-grid">
+        <div class="stat-card">
+            <h3>Total Balance</h3>
+            <div class="value">
+                {{ totalBalance | customCurrency}}
+                <p class="stat-label">Accross all accounts</p>
+            </div>
+        </div>
+
+        <div class="stat-card chequing">
+            <h3>Chequing Accounts</h3>
+            <div class="value">{{ chequingBalance | customCurrency}}</div>
+            <p class="stat-label">Active balance</p>
+        </div>
+
+        <div class="stat-card savings">
+            <h3>Savings Accounts</h3>
+            <div class="value">{{ savingsBalance | customCurrency }}</div>
+            <p class="stat-label">Total savings</p>
+        </div>
+     </div>
+
+    <!-- Quick Actions -->
+    <div class="card">
+        <h2>Quick Actions</h2>
+        <div class="action-buttons">
+            <app-custom-button
+                label="Create New Account"
+                buttonstyle="primary"
+                (btnClick)="navigateToCreateAccount()">
+            </app-custom-button>
+
+            <app-custom-button
+                label="Transfer Funds"
+                buttonStyle="secondary"
+                (btnClick)="navigateToTransfer()">
+            </app-custom-button>
+
+            <app-custom-button
+                label="View All Transactions"
+                buttonStyle="secondary"
+                (btnClick)="navigateToHistory()">
+            </app-custom-button>
+        </div>
+    </div>
+
+</div>
