@@ -1,1 +1,71 @@
-<p>create-account works!</p>
+<div class="create-account-container">
+    <div class="card">
+        <div class="form-header">
+            <h1>Create New Account</h1>
+            <p class="subtitle">Fill in details to create new bank account</p>
+        </div>
+
+        <div class="success-message" *ngIf="showSuccess">
+           ✓ {{ successMessage }}
+        </div>
+
+        <form [formGroup]="accountForm" >
+
+            <app-form-input
+                [control]="$any(accountForm.get('accountHolderName'))"
+                label="Account Holder Name"
+                inputType="text"
+                placeholder="Enter full name"
+                hint="Enter the full legal name (3-50 characters)">
+            </app-form-input>
+
+            <app-radio-group
+                [control]="$any(accountForm.get('accountType'))"
+                label="Account type"
+                [options]="accountTypeOptions">
+            </app-radio-group>
+
+            <app-form-input
+                [control]="$any(accountForm.get('balance'))"
+                label="Initial Balance"
+                inputType="number"
+                placeholder="0.00"
+                prefix="$"
+                hint="Minimum balance: $0.00">
+            </app-form-input>
+
+            <div class="account-preview" *ngIf="selectedAccountType">
+                <div class="preview-card" [class.chequing]="selectedAccountType === 'CHEQUING'">
+                    <div class="preview-header">
+                        <span class="preview-label">Selected Account Type</span>
+                    </div>
+                    <div class="preview-body">
+                        <h3>{{ selectedAccountType === 'CHEQUING' ? 'Chequing Account' : 'Savings Account' }}</h3>
+                        <p *ngIf="selectedAccountType === 'CHEQUING'">
+                            Perfect for daily transactions, bill payments and ATM withdrawals
+                        </p>
+                        <p *ngIf="selectedAccountType === 'SAVINGS'">
+                            Earn interest on your savings while keeping funds accessible
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-row">
+                <app-custom-button
+                    type="submit"
+                    [label]="'Create' + (selectedAccountType === 'CHEQUING' ? 'Chequing' : 'Savings') + 'Account'"
+                    [accountType]="selectedAccountType"
+                    [disabled]="accountForm.invalid">
+                </app-custom-button>
+
+                <app-custom-button
+                    type="button"
+                    label="Cancel"
+                    buttonStyle="secondary"
+                    (btnClick)="goBack()">
+                </app-custom-button>
+            </div>
+        </form>
+    </div>
+</div>
