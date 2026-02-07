@@ -1,0 +1,29 @@
+<div class="form-field">
+  <label *ngIf="label">
+    {{ label }}
+    <span class="required" *ngIf="control?.hasError('required')">*</span>
+  </label>
+
+  <div class="radio-group" [class.inline]="inline">
+    <label 
+      *ngFor="let option of options"
+      class="radio-label"
+      [class.selected]="control.value === option.value">
+      <input
+        type="radio"
+        [formControl]="control"
+        [value]="option.value"
+      />
+      <span class="radio-content">
+        <span class="radio-title">{{ option.label }}</span>
+        <span *ngIf="option.description" class="radio-description">
+          {{ option.description }}
+        </span>
+      </span>
+    </label>
+  </div>
+
+  <div class="error-message" *ngIf="showErrors()">
+    {{ getErrorMessage() }}
+  </div>
+</div>
