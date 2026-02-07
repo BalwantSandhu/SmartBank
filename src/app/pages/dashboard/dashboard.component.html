@@ -51,4 +51,87 @@
         </div>
     </div>
 
+    <!-- All Accounts -->
+    <div class="card">
+        <h2>All Accounts</h2>
+        <div class="table-container" *ngIf="(accounts$ | async) as accounts">
+            <table *ngIf="accounts.length > 0; else noAccounts">
+                <thead>
+                    <tr>
+                        <th>Account Number</th>
+                        <th>Account Holder</th>
+                        <th>Type</th>
+                        <th>Balance</th>
+                        <th>Created Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let account of accounts">
+                        <td>{{ account.accountNumber }}</td>
+                        <td>{{ account.accountHolderName }}</td>
+                        <td>
+                            <span class="account-type-badge"
+                                [class.chequing]="account.accountType === 'CHEQUING'"
+                                [class.savings]="account.accountType === 'SAVINGS'">
+                                {{ account.accountType | accountType }}
+                            </span>
+                        </td>
+                        <td class="balance">{{ account.balance | customCurrency }}</td>
+                        <td>{{ account.createdDate | date: 'MMM d, y' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <ng-template #noAccounts>
+                <div class="empty-state">
+                    <p>No accounts found. Create your first account to get started!</p>
+                    <app-custom-button
+                        label="Create Account"
+                        buttonStyle="primary"
+                        (btnClick)="navigateToCreateAccount()">
+                    </app-custom-button>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+
+    <!-- Recent Transactions -->
+     <div class="card">
+        <h2>Recent Transaction</h2>
+        <div class="table-container" *ngIf="recentTransactions.length > 0; else noTransactions">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Amount</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let transaction of recentTransactions">
+                        <td>{{ transaction.transactionDate | date: 'short' }}</td>
+                        <td>{{ getAccountName(transaction.fromAccountId) }}</td>
+                        <td>{{ getAccountName(transaction.toAccountId) }}</td>
+                        <td class="amount">{{ transaction.amount | customCurrency}}</td>
+                        <td>{{ transaction.description }}</td>
+                        <td>
+                            <span class="status-badge status-success">
+                                {{ transaction.status }}
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <ng-template #noTransactions>
+            <div class="empty-state">
+                <p>No Recent transactions</p>
+            </div>
+        </ng-template>
+        
+     </div>
 </div>
