@@ -1,3 +1,5 @@
+@import '../../../../styles/mixins';
+
 .create-account-container {
   padding: 20px;
   max-width: 800px;
@@ -21,13 +23,7 @@
 }
 
 .success-message {
-  color: #4caf50;
-  font-size: 14px;
-  padding: 12px;
-  background-color: #e8f5e9;
-  border-radius: 4px;
-  margin-bottom: 16px;
-  border-left: 4px solid #4caf50;
+  @include success-message;
 }
 
 .card {

@@ -1,3 +1,5 @@
+@import '../../../../styles/mixins';
+
 .transfer-container {
   padding: 20px;
   max-width: 800px;
@@ -27,70 +29,13 @@
   padding: 24px;
 }
 
+// Use mixins for messages
 .success-message {
-  position: fixed;
-  top: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-  
-  min-width: 500px;
-  
-  color: #ffffff;
-  font-size: 16px;
-  padding: 18px 24px;
-  background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
-  border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(76, 175, 80, 0.4);
-  text-align: center;
-  font-weight: 500;
-  
-  animation: slideDown 0.5s ease-out;
-
-  &::before {
-    content: '✓';
-    display: inline-block;
-    width: 28px;
-    height: 28px;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    line-height: 28px;
-    margin-right: 12px;
-    font-size: 18px;
-  }
+  @include success-message;
 }
 
 .error-alert {
-  position: fixed;
-  top: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-  
-  min-width: 500px;
-  
-  background: linear-gradient(135deg, #f44336 0%, #e53935 100%);
-  color: white;
-  font-size: 16px;
-  padding: 18px 24px;
-  border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(244, 67, 54, 0.4);
-  text-align: center;
-  font-weight: 500;
-  
-  animation: slideDown 0.5s ease-out;
-
-  &::before {
-    content: '⚠';
-    display: inline-block;
-    width: 28px;
-    height: 28px;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    line-height: 28px;
-    margin-right: 12px;
-    font-size: 18px;
-  }
+  @include error-message;
 }
 
 .form-error {
@@ -258,34 +203,23 @@
   }
 }
 
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -40px);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-}
-
+// Component-specific responsive overrides
 @media (max-width: 768px) {
-  .success-message,
-  .error-alert {
-    min-width: auto;
-    left: 20px;
-    right: 20px;
-    transform: none;
-  }
-  
-  @keyframes slideDown {
-    from {
-      opacity: 0;
-      transform: translateY(-40px);
+  .button-row {
+    flex-direction: column;
+
+    app-custom-button {
+      width: 100%;
     }
-    to {
-      opacity: 1;
-      transform: translateY(0);
+  }
+
+  .transfer-summary .summary-row {
+    flex-direction: column;
+    gap: 4px;
+    
+    &:nth-child(4) {
+      margin: 8px 0;
+      padding: 16px;
     }
   }
 }
