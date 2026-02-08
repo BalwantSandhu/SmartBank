@@ -1,1 +1,101 @@
-<p>fund-transfer works!</p>
+<div class="transfer-container">
+    <div class="card">
+        <div class="form-header">
+            <h1>Transfer Funds</h1>
+            <p class="subtitle">Transfer money between your accounts</p>
+        </div>
+
+        <div class="success-message" *ngIf="showSuccess">
+            ✓ {{ message }}
+        </div>
+
+        <div class="error-alert" *ngIf="showError">
+            ⚠ {{ message }}
+        </div>
+
+        <form [formGroup]="transferForm" (ngSubmit)="onSubmit()">
+            <app-form-select
+                [control]="$any(transferForm.get('fromAccountId'))"
+                label="From Account"
+                placeholder="Select source account"
+                [options]="fromAccountOptions">
+            </app-form-select>
+
+            <div class="account-info" *ngIf="selectedFromAccount">
+                <div class="info-card">
+                    <div class="info-label">Available Balance</div>
+                    <div class="info-value">{{ selectedFromAccount.balance | customCurrency }}</div>
+                    <div class="info-detail">{{ selectedFromAccount.accountType | accountType}}</div>
+                </div>
+            </div>
+            
+            <app-form-select
+                [control]="$any(transferForm.get('toAccountId'))"
+                label="To Account"
+                placeholder="Select Destination Account"
+                [options]="toAccountOptions">
+            </app-form-select>
+
+            <div class="form-error" *ngIf="transferForm.errors?.['sameAccount'] && transferForm.get('toAccountId')?.touched">
+                ⚠ Source and destination accounts must be different
+            </div>
+
+            <app-form-input
+                [control]="$any(transferForm.get('amount'))"
+                label="Amount"
+                inputType="number"
+                placeholder="0.00"
+                prefix="$"
+                [hint]="selectedFromAccount? 'Maximum: $' + selectedFromAccount.balance.toFixed(2): ''">
+            </app-form-input>
+
+            <app-form-input
+                [control]="$any(transferForm.get('description'))"
+                label="Description"
+                inputType="text"
+                placeholder="e.g., Monthly savings, Bill payment"
+                hint="Enter a brief description (3-100 characters)">
+            </app-form-input>
+
+            <div class="transfer-summary" *ngIf="transferAmount && selectedFromAccount && selectedToAccount">
+                <h3>Transfer Summary</h3>
+                <div class="summary-row">
+                    <span>From:</span>
+                    <span class="summary-value">{{ selectedFromAccount.accountNumber }}</span>
+                </div>
+                <div class="summary-row">
+                    <span>To:</span>
+                    <span class="summary-value">{{ selectedToAccount.accountNumber }}</span>
+                </div>
+                <div class="summary-row">
+                    <span>Amount:</span>
+                    <span class="summary-value amount-highlight">{{ transferAmount | customCurrency }}</span>
+                </div>
+                <div class="summary-row">
+                    <span>New Balance (From):</span>
+                    <span class="summary-value">{{ (selectedFromAccount.balance - transferAmount) | customCurrency}}</span>
+                </div>
+                <div class="summary-row">
+                    <span>New Balance (To):</span>
+                    <span class="summary-value">{{ (selectedToAccount.balance + transferAmount) | customCurrency}}</span>
+                </div>
+            </div>
+
+            <div class="button-row">
+                <app-custom-button
+                    type="submit"
+                    label="Transfer Funds"
+                    buttonStyle="primary"
+                    [disabled]="transferForm.invalid">
+                </app-custom-button>
+
+                <app-custom-button
+                    type="button"
+                    label="Cancel"
+                    buttonStyle="secondary"
+                    (btnClick)="goBack()">
+                </app-custom-button>
+            </div>
+        </form>
+    </div>
+</div>
