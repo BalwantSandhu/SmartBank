@@ -1,1 +1,137 @@
-<p>transaction-history works!</p>
+<div class="history-container">
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a routerLink="/dashboard" class="breadcrumb-link">
+            <span class="material-icons" aria-hidden="true">home</span>
+            Dashboard
+        </a>
+        <span class="seperator">/</span>
+        <span class="current">Transaction History</span>
+    </nav>
+
+    <div class="card">
+        <div class="page-header">
+            <h1>Transaction History</h1>
+            <p class="subtitle">View and filter all your transactions</p>
+        </div>
+
+        <div class="filter-section" role="search" aria-label="Transaction filters">
+            <div class="filter-row">
+                <div class="filter-item">
+                    <app-form-select
+                        [control]="accountFilterControl"
+                        label="Filter by Account"
+                        placeholder="All Accounts"
+                        [options]="accountOptions">
+                    </app-form-select>
+                </div>
+
+                <div class="filter-item">
+                    <app-form-input
+                        [control]="searchControl"
+                        label="search Transactions"
+                        inputType="text"
+                        placeholder="Search by description, amount or account"
+                        hint="Search accross all transaction details">
+                    </app-form-input>
+                </div>
+
+                <div class="filter-item filter-actions">
+                    <app-custom-button
+                        *ngIf="hasActiveFilters"
+                        label="Clear Filters"
+                        buttonStyle="secondary"
+                        (btnClick)="clearFilters()">
+                    </app-custom-button>
+                </div>
+            </div>
+
+            <div class="results-info" *ngIf="filteredTransactions.length> 0">
+                <p>
+                    Showing <strong>{{ filteredTransactions.length }}</strong>
+                    {{ filteredTransactions.length === 1 ? 'transaction' : 'transactions'}}
+                    <span *ngIf="hasActiveFilters">(filter from {{ allTransactions.length }} total)</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table
+                *ngIf="filteredTransactions.length > 0; else noTransactions"
+                role="table"
+                aria-label="Transaction history table">
+                <thead>
+                    <tr>
+                        <th scope="col">Date & Time</th>
+                        <th scope="col">From Account</th>
+                        <th scope="col">To Account</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let transaction of filteredTransactions">
+                        <td class="date-cell">
+                            <div class="date-primary">{{ transaction.transactionDate | date: 'MMM d, y' }}</div>
+                            <div class="date-secondary">{{ transaction.transactionDate | date: 'shortTime' }}</div>
+                        </td>
+                        <td>
+                            <div class="account-info">
+                                {{ getAccountName(transaction.fromAccountId) }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="account-info">
+                                {{ getAccountName(transaction.toAccountId)}}
+                            </div>
+                        </td>
+                        <td class="amount-cell">
+                            <span class="amount" [attr.aria-label]="'Amount: ' + (transaction.amount | customCurrency)">
+                                {{ transaction.amount | customCurrency }}
+                            </span>
+                        </td>
+                        <td>{{ transaction.description }}</td>
+                        <td>
+                            <span class="type-badge" [attr.aria-label]="'Transaction type: ' + transaction.type">
+                                {{ transaction.type }}
+                            </span>
+                        </td>
+                        <td>
+                            <span
+                                class="status-badge"
+                                [class.status-completed]="transaction.status === 'COMPLETED'"
+                                [class.status-pending]="transaction.status === 'PENDING'"
+                                [class.status-failed]="transaction.status === 'FAILED'"
+                                [attr.aria-label]="'Status: ' + transaction.status">
+                                {{ transaction.status }}
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <ng-template #noTransactions>
+                <div class="empty-state" role="status" aria-live="polite">
+                    <div class="empty-icon">📋</div>
+                    <h3>No Transactions Found</h3>
+                    <p *ngIf="hasActiveFilters">Try adjusting your filters to see more results</p>
+                    <p *ngIf="!hasActiveFilters">No transactions have been made yet. Create an account and make your first transfer!</p>
+                    <app-custom-button
+                        *ngIf="hasActiveFilters"
+                        label="Clear All Filters"
+                        buttonStyle="primary"
+                        (btnClick)="clearFilters()">
+                    </app-custom-button>
+                    <app-custom-button
+                        *ngIf="!hasActiveFilters"
+                        label="Go to Dashboard"
+                        buttonStyle="primary"
+                        (btnClick)="clearFilters()">
+                    </app-custom-button>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>
