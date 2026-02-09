@@ -1,1 +1,109 @@
-<router-outlet />
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-container">
+    <div class="nav-brand">
+      <a
+        routerLink="/dashboard" class="brand-link" aria-label="SmartBank home">
+        <span class="brand-icon" aria-hidden="true">🏦</span>
+        <span class="brand-text">SmartBank</span>
+      </a>
+    </div>
+
+    <div class="nav-links desktop-nav">
+      <a
+        routerLink="/dashboard"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-link">
+        <span class="material-icons" aria-hidden="true">dashboard</span>
+        <span>Dashboard</span>
+      </a>
+
+      <a
+        routerLink="/accounts/create"
+        routerLinkActive="active"
+        class="nav-link">
+        <span class="material-icons" aria-hidden="true">account_balance</span>
+        <span>Create Account</span>
+      </a>
+
+      <a 
+        routerLink="/transactions/transfer"
+        routerLinkActive="active"
+        class="nav-link">
+        <span class="material-icons" aria-hidden="true">swap_horiz</span>
+        <span>Transfer Funds</span>
+      </a>
+
+      <a
+        routerLink="/transactions/history"
+        routerLinkActive="active"
+        class="nav-link">
+        <span class="material-icons" aria-hidden="true">history</span>
+        <span>Transaction History</span>
+      </a>
+    </div>
+
+    <button
+      class="mobile-menu-toggle"
+      (click)="toggleMobileMenu()"
+      [attr.aria-expanded]="isMobileMenuOpen"
+      aria-label="Toggle navigation menu">
+      <span class="material-icons">
+        {{ isMobileMenuOpen ? 'close' : 'menu'}}
+      </span>
+    </button>
+  </div>
+
+  <div
+    class="mobile-nav"
+    [class.open]="isMobileMenuOpen"
+    [attr.aria-hidden]="!isMobileMenuOpen">
+    <a
+      routerLink="/dashboard"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="mobile-nav-link"
+      (click)="closeMobileMenu()">
+      <span class="material-icons" aria-hidden="true">dashboard</span>
+      <span>Dashboard</span>
+    </a>
+
+    <a
+      routerLink="/accounts/create"
+      routerLinkActive="active"
+      class="mobile-nav-link"
+      (click)="closeMobileMenu()">
+      <span class="material-icons" aria-hidden="true">account_balance</span>
+      <span>Create Account</span>
+    </a>
+
+    <a
+      routerLink="/transactions/transfer"
+      routerLinkActive="active"
+      class="mobile-nav-link"
+      (click)="closeMobileMenu()">
+      <span class="material-icons" aria-hidden="true">swap_horiz</span>
+      <span>Transfer Funds</span>
+    </a>
+
+    <a
+      routerLink="/transactions/history"
+      routerLinkActive="active"
+      class="mobile-nav-link"
+      (click)="closeMobileMenu()">
+      <span class="material-icons" aria-hidden="true">history</span>
+      <span> Transaction History</span>
+    </a>
+  </div>
+</nav>
+
+<main id="main-content" role="main">
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="app-footer" role="contentinfo">
+  <div class="footer-content">
+    <p>&copy; 2026 SmartBank. All rights reserved.</p>
+    <p class="footer-note">Take Home Assessment - Banking Application</p>
+  </div>
+</footer>
