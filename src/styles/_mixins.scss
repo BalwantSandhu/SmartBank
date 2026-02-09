@@ -18,18 +18,6 @@
   font-weight: 500;
   
   animation: slideDown 0.5s ease-out;
-
-  &::before {
-    content: '✓';
-    display: inline-block;
-    width: 28px;
-    height: 28px;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    line-height: 28px;
-    margin-right: 12px;
-    font-size: 18px;
-  }
   
   // Mobile responsive
   @media (max-width: 768px) {
