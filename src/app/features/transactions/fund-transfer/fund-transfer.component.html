@@ -1,13 +1,13 @@
 <div class="transfer-container">
 
-    <div class="breadcrumb">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
         <a routerLink="/dashboard" class="breadcrumb-link">
-        <span class="material-icons">home</span>
+        <span class="material-icons" aria-hidden="true">home</span>
         Dashboard
         </a>
         <span class="separator">/</span>
         <span class="current">Transfer Funds</span>
-    </div>
+    </nav>
 
     <div class="card">
         <div class="form-header">
@@ -15,15 +15,21 @@
             <p class="subtitle">Transfer money between your accounts</p>
         </div>
 
-        <div class="success-message" *ngIf="showSuccess">
+        <div class="success-message" 
+             *ngIf="showSuccess"
+             role="alert"
+             aria-live="assertive">>
             ✓ {{ message }}
         </div>
 
-        <div class="error-alert" *ngIf="showError">
+        <div class="error-alert" 
+             *ngIf="showError"
+             role="alert"
+             aria-live="assertive">
             ⚠ {{ message }}
         </div>
 
-        <form [formGroup]="transferForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="transferForm" (ngSubmit)="onSubmit()" aria-label="Fund transfer form">
             <app-form-select
                 [control]="$any(transferForm.get('fromAccountId'))"
                 label="From Account"
@@ -31,10 +37,13 @@
                 [options]="fromAccountOptions">
             </app-form-select>
 
-            <div class="account-info" *ngIf="selectedFromAccount">
+            <div class="account-info" 
+                 *ngIf="selectedFromAccount"
+                 role="region"
+                 aria-label="Selected account balance information">
                 <div class="info-card">
                     <div class="info-label">Available Balance</div>
-                    <div class="info-value">{{ selectedFromAccount.balance | customCurrency }}</div>
+                    <div class="info-value" [attr.aria-label]="'Available balance: ' + (selectedFromAccount.balance | customCurrency)">{{ selectedFromAccount.balance | customCurrency }}</div>
                     <div class="info-detail">{{ selectedFromAccount.accountType | accountType}}</div>
                 </div>
             </div>
@@ -46,7 +55,10 @@
                 [options]="toAccountOptions">
             </app-form-select>
 
-            <div class="form-error" *ngIf="transferForm.errors?.['sameAccount'] && transferForm.get('toAccountId')?.touched">
+            <div class="form-error" 
+                 *ngIf="transferForm.errors?.['sameAccount'] && transferForm.get('toAccountId')?.touched"
+                 role="alert"
+                 aria-live="polite">
                 ⚠ Source and destination accounts must be different
             </div>
 
@@ -67,7 +79,10 @@
                 hint="Enter a brief description (3-100 characters)">
             </app-form-input>
 
-            <div class="transfer-summary" *ngIf="transferAmount && selectedFromAccount && selectedToAccount">
+            <div class="transfer-summary" 
+                 *ngIf="transferAmount && selectedFromAccount && selectedToAccount"
+                 role="region"
+                 aria-label="Transfer summary">
                 <h3>Transfer Summary</h3>
                 <div class="summary-row">
                     <span>From:</span>

@@ -58,37 +58,37 @@ export class AccountService {
   // Load sample data (for first-time users)
   private loadSampleData(): void {
     const sampleAccounts: Account[] = [
-      {
-        id: '1',
-        accountNumber: 'CHQ-1001',
-        accountHolderName: 'John Doe',
-        accountType: AccountType.CHEQUING,
-        balance: 5000,
-        createdDate: new Date('2024-01-15'),
-        isActive: true
-      },
-      {
-        id: '2',
-        accountNumber: 'SAV-2001',
-        accountHolderName: 'Jane Smith',
-        accountType: AccountType.SAVINGS,
-        balance: 10000,
-        createdDate: new Date('2024-01-20'),
-        isActive: true
-      }
+      // {
+      //   id: '1',
+      //   accountNumber: 'CHQ-1001',
+      //   accountHolderName: 'John Doe',
+      //   accountType: AccountType.CHEQUING,
+      //   balance: 5000,
+      //   createdDate: new Date('2024-01-15'),
+      //   isActive: true
+      // },
+      // {
+      //   id: '2',
+      //   accountNumber: 'SAV-2001',
+      //   accountHolderName: 'Jane Smith',
+      //   accountType: AccountType.SAVINGS,
+      //   balance: 10000,
+      //   createdDate: new Date('2024-01-20'),
+      //   isActive: true
+      // }
     ];
 
     const sampleTransactions: Transaction[] = [
-      {
-        id: '1',
-        fromAccountId: '1',
-        toAccountId: '2',
-        amount: 500,
-        transactionDate: new Date('2024-02-01'),
-        description: 'Transfer to savings',
-        type: TransactionType.TRANSFER,
-        status: TransactionStatus.COMPLETED
-      }
+      // {
+      //   id: '1',
+      //   fromAccountId: '1',
+      //   toAccountId: '2',
+      //   amount: 500,
+      //   transactionDate: new Date('2024-02-01'),
+      //   description: 'Transfer to savings',
+      //   type: TransactionType.TRANSFER,
+      //   status: TransactionStatus.COMPLETED
+      // }
     ];
 
     this.accounts$.next(sampleAccounts);

@@ -2,3 +2,33 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+// Enhanced focus styles for accessibility
+*:focus {
+  outline: 2px solid #3f51b5;
+  outline-offset: 2px;
+}
+
+
+*:focus-visible {
+  outline: 2px solid #3f51b5;
+  outline-offset: 2px;
+}
+
+// Ensure links are distinguishable
+a {
+  text-decoration: underline;
+  
+  &:focus {
+    outline: 2px solid #3f51b5;
+    outline-offset: 2px;
+  }
+}
+
+// Minimum touch target size (44x44px for mobile)
+button,
+a,
+input[type="checkbox"] {
+  min-width: 44px;
+  min-height: 44px;
+}

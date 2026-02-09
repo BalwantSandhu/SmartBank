@@ -19,6 +19,9 @@ export class FormSelectComponent {
   @Input() placeholder: string = 'Select an option';
   @Input() options: SelectOption[] = [];
 
+  selectId: string = `select-${Math.random().toString(36).substr(2, 9)}`;
+  errorId: string = `error-${this.selectId}`;
+  
   showErrors(): boolean {
     return (this.control && this.control.invalid && this.control.touched);
   }

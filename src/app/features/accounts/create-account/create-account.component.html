@@ -1,15 +1,27 @@
 <div class="create-account-container">
+    <!-- <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a routerLink="/dashboard" class="breadcrumb-link">
+        <span aria-hidden="true">←</span>
+        <span>Back to Dashboard</span>
+        </a>
+    </nav> -->
+
     <div class="card">
         <div class="form-header">
             <h1>Create New Account</h1>
             <p class="subtitle">Fill in details to create new bank account</p>
         </div>
 
-        <div class="success-message" *ngIf="showSuccess">
+        <div class="success-message" 
+             *ngIf="showSuccess"
+             role="alert"
+             aria-live="polite">
            ✓ {{ successMessage }}
         </div>
 
-        <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="accountForm" 
+              (ngSubmit)="onSubmit()"
+              aria-label="Create new account form">
 
             <app-form-input
                 [control]="$any(accountForm.get('accountHolderName'))"
@@ -34,7 +46,10 @@
                 hint="Minimum balance: $0.00">
             </app-form-input>
 
-            <div class="account-preview" *ngIf="selectedAccountType">
+            <div class="account-preview" 
+                 *ngIf="selectedAccountType"
+                 role="region"
+                 aria-label="Account type preview">
                 <div class="preview-card" [class.chequing]="selectedAccountType === 'CHEQUING'">
                     <div class="preview-header">
                         <span class="preview-label">Selected Account Type</span>

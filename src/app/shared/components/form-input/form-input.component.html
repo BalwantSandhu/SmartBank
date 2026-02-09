@@ -1,11 +1,11 @@
 <div class="form-field">
   <label *ngIf="label" [attr.for]="label">
     {{ label }}
-    <span class="required" *ngIf="control?.hasError('required')">*</span>
+    <span class="required" *ngIf="control?.hasError('required')" aria-label="required field">*</span>
   </label>
   
   <div class="input-wrapper" [class.has-prefix]="prefix" [class.has-suffix]="suffix">
-    <span class="prefix" *ngIf="prefix">{{ prefix }}</span>
+    <span class="prefix" *ngIf="prefix" aria-hidden="true">{{ prefix }}</span>
     
     <input
       [type]="inputType"
@@ -13,16 +13,25 @@
       [formControl]="control"
       [placeholder]="placeholder"
       [class.error]="showErrors()"
+      [attr.aria-label]="label"
+      [attr.aria-required]="control?.hasError('required')"
+      [attr.aria-invalid]="showErrors()"
+      [attr.aria-describedby]="showErrors() ? errorId : (hint ? hintId : null)"
+
     />
     
-    <span class="suffix" *ngIf="suffix">{{ suffix }}</span>
+    <span class="suffix" *ngIf="suffix" aria-hidden="true">{{ suffix }}</span>
   </div>
 
-  <div class="field-hint" *ngIf="hint && !showErrors()">
+  <div class="field-hint" *ngIf="hint && !showErrors()" [id]="hintId">
     {{ hint }}
   </div>
 
-  <div class="error-message" *ngIf="showErrors()">
+  <div class="error-message" 
+       *ngIf="showErrors()"
+       [id]="errorId"
+       role="alert"
+       aria-live="polite">
     {{ getErrorMessage() }}
   </div>
 </div>

@@ -1,13 +1,17 @@
 <div class="form-field">
-  <label *ngIf="label" [attr.for]="label">
+  <label *ngIf="label" [attr.for]="selectId">
     {{ label }}
-    <span class="required" *ngIf="control?.hasError('required')">*</span>
+    <span class="required" *ngIf="control?.hasError('required')" aria-label="required field">*</span>
   </label>
 
   <select
-    [id]="label"
+    [id]="selectId"
     [formControl]="control"
     [class.error]="showErrors()"
+    [attr.aria-label]="label"
+    [attr.aria-required]="control?.hasError('required')"
+    [attr.aria-invalid]="showErrors()"
+    [attr.aria-describedby]="showErrors() ? errorId : null"
   >
     <option value="" disabled>{{ placeholder }}</option>
     <option 
@@ -18,7 +22,11 @@
     </option>
   </select>
 
-  <div class="error-message" *ngIf="showErrors()">
+  <div class="error-message" 
+       *ngIf="showErrors()"
+       [id]="errorId"
+       role="alert"
+       aria-live="polite">
     {{ getErrorMessage() }}
   </div>
 </div>

@@ -16,6 +16,10 @@ export class FormInputComponent {
   @Input() suffix: string = '';
   @Input() hint: string = '';
 
+  inputId: string = `input-${Math.random().toString(36).substr(2, 9)}`;
+  errorId: string = `error-${this.inputId}`;
+  hintId: string = `hint-${this.inputId}`;
+
   showErrors(): boolean {
     return (this.control && this.control.invalid && this.control.touched);
   }

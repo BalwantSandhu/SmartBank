@@ -1,29 +1,39 @@
 <div class="form-field">
-  <label *ngIf="label">
-    {{ label }}
-    <span class="required" *ngIf="control?.hasError('required')">*</span>
-  </label>
+    <fieldset>
+        <legend *ngIf="label">
+            {{ label }}
+            <span class="required" *ngIf="control?.hasError('required')" aria-label="required field">*</span>
+        </legend>
 
-  <div class="radio-group" [class.inline]="inline">
-    <label 
-      *ngFor="let option of options"
-      class="radio-label"
-      [class.selected]="control.value === option.value">
-      <input
-        type="radio"
-        [formControl]="control"
-        [value]="option.value"
-      />
-      <span class="radio-content">
-        <span class="radio-title">{{ option.label }}</span>
-        <span *ngIf="option.description" class="radio-description">
-          {{ option.description }}
-        </span>
-      </span>
-    </label>
-  </div>
+        <div class="radio-group" 
+            [class.inline]="inline"
+            role="radiogroup"
+            [attr.aria-required]="control?.hasError('required')"
+            [attr.aria-invalid]="showErrors()">
+            <label 
+                *ngFor="let option of options; let i = index"
+                class="radio-label"
+                [class.selected]="control.value === option.value"
+                [attr.for]="'radio-'+ i">
+                <input
+                    type="radio"
+                    [id]="'radio-' + i"
+                    [formControl]="control"
+                    [value]="option.value"
+                    [attr.aria-label]="option.label"
+                    [attr.aria-describedby]="option.description ? 'desc-' + i : null"
+                />
+                <span class="radio-content">
+                    <span class="radio-title">{{ option.label }}</span>
+                    <span *ngIf="option.description" class="radio-description" [id]="'desc-' + i">
+                        {{ option.description }}
+                    </span>
+                </span>
+            </label>
+        </div>
 
-  <div class="error-message" *ngIf="showErrors()">
-    {{ getErrorMessage() }}
-  </div>
+        <div class="error-message" *ngIf="showErrors()" role="alert" aria-live="polite">
+            {{ getErrorMessage() }}
+        </div>
+    </fieldset>
 </div>
