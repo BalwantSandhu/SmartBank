@@ -7,6 +7,7 @@ A simple, user-friendly banking application built with Angular that allows users
 ## Table of Contents
 
 - [Overview](#overview)
+- [Screenshots](#screenshots)
 - [Architecture & Design](#architecture--design)
 - [Features](#features)
 - [Technology Stack](#technology-stack)
@@ -18,7 +19,7 @@ A simple, user-friendly banking application built with Angular that allows users
 - [Key Components](#key-components)
 - [Accessibility Features](#accessibility-features)
 - [Testing the Application](#testing-the-application)
-- [Quick Summary](#quick-summary)
+- [Quick Start Summary](#quick-start-summary)
 ---
 
 ## Overview
@@ -30,6 +31,47 @@ SmartBank is a front-end banking application that demonstrates modern Angular de
 - See real-time balance updates
 
 All data is stored locally in the browser using **localStorage**, so no backend server is required.
+
+---
+
+## Screenshots
+
+### Dashboard - Account Overview
+![Dashboard](./docs/screenshots/dashboard.png)
+*Main dashboard showing account statistics, quick actions, and recent transactions*
+
+---
+
+### Create Account
+![Create Account](./docs/screenshots/create-account.png)
+*Form with validation, account type selection (Chequing/Savings), and conditional button styling*
+
+---
+
+### Fund Transfer
+![Fund Transfer](./docs/screenshots/fund-transfer.png)
+*Transfer interface with real-time balance display and transfer summary preview*
+
+---
+
+### Transaction History
+![Transaction History](./docs/screenshots/transaction-history.png)
+*Filterable transaction table with search functionality and account filters*
+
+---
+
+### Success Modal
+![Success Modal](./docs/screenshots/success-modal.png)
+*Loading overlay with countdown timer and auto-redirect functionality*
+
+---
+
+### Mobile Responsive Design
+<p float="left">
+  <img src="./docs/screenshots/mobile-dashboard.png" width="250" />
+  <img src="./docs/screenshots/mobile-transfer.png" width="250" />
+  <img src="./docs/screenshots/mobile-history.png" width="250" />
+</p>
 
 ---
 
@@ -249,24 +291,7 @@ Template Updates (via Observable subscription)
 3. All data is back!
 ```
 
-### 3. Form Management
-
-**Technology:** Angular **FormBuilder** with **Reactive Forms**
-
-**Why?**
-- Strong validation
-- Easy testing
-- Better control over form state
-```typescript
-// Example: Create Account Form
-this.accountForm = this.formBuilder.group({
-  accountHolderName: ['', [Validators.required, Validators.minLength(3)]],
-  accountType: [AccountType.CHEQUING, [Validators.required]],
-  balance: [0, [Validators.required, Validators.min(0)]]
-});
-```
-
-### 4. Routing
+### 3. Routing
 
 **Technology:** Angular Router with **Lazy Loading**
 ```
