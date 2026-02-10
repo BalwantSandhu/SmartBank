@@ -39,10 +39,12 @@ All data is stored locally in the browser using **localStorage**, so no backend 
 <summary><b>Click to view System Architecture Diagram</b></summary>
 
 ![Application Architecture](./docs/diagrams/app_Architecture.svg)
+</details>
 
-**Layer Breakdown:**
-...
+<details>
+<summary><b>Click to view Component Structure Diagram</b></summary>
 
+![Component Structure](./docs/diagrams/component_structure.svg)
 </details>
 
 ---
