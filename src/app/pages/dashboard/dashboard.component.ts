@@ -19,6 +19,11 @@ export class DashboardComponent {
 
   accounts$!: Observable<Account[]>;
   transaction$!: Observable<Transaction[]>;
+
+  allAccounts: Account[] = [];
+  displayedAccounts: Account[] = [];
+  accountsToShow: number = 5;
+  showAllAccounts: boolean = false;
   
   constructor(private accountService: AccountService, private router: Router){}
 
@@ -29,6 +34,8 @@ export class DashboardComponent {
   private loadDashboardData(): void{
     this.accounts$ = this.accountService.getAccounts();
     this.accounts$.subscribe((accounts) => {
+      this.allAccounts = accounts;
+      this.updateDisplayedAccounts();
       this.calculateBalances(accounts);
     });
 
@@ -36,6 +43,27 @@ export class DashboardComponent {
     this.transaction$.subscribe((transaction) => {
       this.recentTransactions = transaction.slice(0, 5);
     });
+  }
+
+  private updateDisplayedAccounts(): void{
+    if(this.showAllAccounts){
+      this.displayedAccounts = this.allAccounts;
+    } else {
+      this.displayedAccounts = this.allAccounts.slice(0, this.accountsToShow);
+    }
+  }
+
+  toggleShowAllAccount(): void{
+    this.showAllAccounts = !this.showAllAccounts;
+    this.updateDisplayedAccounts();
+  }
+
+  get hasMoreAccounts(): boolean{
+    return this.allAccounts.length > this.accountsToShow;
+  }
+
+  get hiddenAccountsCount(): number{
+    return this.allAccounts.length - this.accountsToShow;
   }
 
   private calculateBalances(accounts: Account[]): void{
