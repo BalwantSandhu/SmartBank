@@ -36,9 +36,18 @@ All data is stored locally in the browser using **localStorage**, so no backend 
 
 ## Screenshots
 
-### Dashboard - Account Overview
+### Dashboard
+#### Account Overview with no accounts
+![Dashboard](./docs/screenshots/dashboard-no-account.png)
+*Main dashboard showing account statistics, quick actions, and recent transactions when there are no accounts*
+
+#### Account Overview with accounts
 ![Dashboard](./docs/screenshots/dashboard.png)
 *Main dashboard showing account statistics, quick actions, and recent transactions*
+
+#### Account Overview with accounts more than 5
+![Dashboard](./docs/screenshots/dashboard-with-more-accounts.png)
+*Main dashboard where we have more than 5 accounts and account list colapse down to show only 5 so we don't have a messy dashboard and a button or link can be used by a user to see all accounts*
 
 ---
 
