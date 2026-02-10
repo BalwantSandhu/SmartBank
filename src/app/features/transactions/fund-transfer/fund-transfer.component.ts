@@ -20,6 +20,9 @@ export class FundTransferComponent {
   isRedirecting: boolean = false;
   countdown: number = 3;
 
+  private originalFromBalance: number = 0;
+  private originalToBalance: number = 0;
+
   fromAccountOptions: SelectOption[] = [];
   toAccountOptions: SelectOption[] = [];
 
@@ -124,12 +127,19 @@ export class FundTransferComponent {
   }
 
   get transferAmount(): number{
-    // const value = this.transferForm.get('amount')?.value ?? 0;
     return parseFloat(this.transferForm.get('amount')?.value || 0);
   }
 
   goBack(){
     this.router.navigate(['/dashboard']);
+  }
+
+  get displayFromBalance(): number{
+    return this.isRedirecting ? this.originalFromBalance : (this.selectedFromAccount?.balance || 0);
+  }
+
+  get displayToBalance(): number{
+    return this.isRedirecting ? this.originalToBalance : (this.selectedToAccount?.balance || 0);
   }
 
   onSubmit(): void{
@@ -139,6 +149,14 @@ export class FundTransferComponent {
     }
 
     const { fromAccountId, toAccountId, amount, description } = this.transferForm.getRawValue();
+
+    const fromAccount = this.accounts.find(acc => acc.id === fromAccountId);
+    const toAccount = this.accounts.find(acc => acc.id === toAccountId);
+    
+    if (fromAccount && toAccount) {
+      this.originalFromBalance = fromAccount.balance;
+      this.originalToBalance = toAccount.balance;
+    }
 
     try{
       this.accountService.transferFunds(

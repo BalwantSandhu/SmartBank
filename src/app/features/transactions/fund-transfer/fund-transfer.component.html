@@ -91,11 +91,11 @@
                 </div>
                 <div class="summary-row">
                     <span>New Balance (From):</span>
-                    <span class="summary-value">{{ (selectedFromAccount.balance - transferAmount) | customCurrency}}</span>
+                    <span class="summary-value">{{ (displayFromBalance - transferAmount) | customCurrency}}</span>
                 </div>
                 <div class="summary-row">
                     <span>New Balance (To):</span>
-                    <span class="summary-value">{{ (selectedToAccount.balance + transferAmount) | customCurrency}}</span>
+                    <span class="summary-value">{{ (displayToBalance + transferAmount) | customCurrency}}</span>
                 </div>
             </div>
 
