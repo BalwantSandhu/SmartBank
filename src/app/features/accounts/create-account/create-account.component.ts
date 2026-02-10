@@ -15,6 +15,8 @@ export class CreateAccountComponent {
   accountForm!: FormGroup;
   showSuccess: boolean = false;
   successMessage: string = '';
+  isRedirecting: boolean = false;
+  countdown: number = 3;
 
   accountTypeOptions: RadioOption[] = [
     {
@@ -74,7 +76,11 @@ export class CreateAccountComponent {
 
   onSubmit(){
     if(this.accountForm.invalid){
-      this.accountForm.markAllAsTouched;
+      this.accountForm.markAllAsTouched();
+      return;
+    }
+
+    if(this.isRedirecting){
       return;
     }
 
@@ -88,13 +94,25 @@ export class CreateAccountComponent {
       
       this.successMessage = `Account ${newAccount.accountNumber} created successfully!`;
       this.showSuccess = true;
+      this.isRedirecting = true;
 
-      setTimeout(() => {
-        this.goBack()
-      }, 2000);
+      this.accountForm.disable();
+
+      this.startCountdown();
     } catch(error){
       console.error('Error creating account:', error);
     }
+  }
+
+  private startCountdown(): void{
+    const countdownInterval = setInterval(() => {
+      this.countdown--;
+
+      if(this.countdown === 0){
+        clearInterval(countdownInterval);
+        this.router.navigate(['/dashboard']);
+      }
+    }, 1000);
   }
 
   goBack(): void{

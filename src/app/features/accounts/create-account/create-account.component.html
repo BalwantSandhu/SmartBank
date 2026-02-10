@@ -71,7 +71,7 @@
             <div class="button-row">
                 <app-custom-button
                     type="submit"
-                    [label]="'Create' + (selectedAccountType === 'CHEQUING' ? 'Chequing' : 'Savings') + 'Account'"
+                    [label]="'Create' + (selectedAccountType === 'CHEQUING' ? ' Chequing ' : ' Savings ') + 'Account'"
                     [accountType]="selectedAccountType"
                     [disabled]="accountForm.invalid">
                 </app-custom-button>
@@ -86,3 +86,11 @@
         </form>
     </div>
 </div>
+
+<app-loading-modal
+    [show]="isRedirecting"
+    title="Success!"
+    [message]="successMessage"
+    [countdown]="countdown"
+    (goNowClick)="goBack()">
+</app-loading-modal>

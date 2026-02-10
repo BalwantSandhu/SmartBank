@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormInputComponent } from './components/form-input/form-input.component';
 import { RadioGroupComponent } from './components/radio-group/radio-group.component';
 import { FormSelectComponent } from './components/form-select/form-select.component';
+import { LoadingModalComponent } from './components/loading-modal/loading-modal.component';
 
 
 
@@ -19,7 +20,8 @@ import { FormSelectComponent } from './components/form-select/form-select.compon
     TransactionFilterPipe,
     FormInputComponent,
     RadioGroupComponent,
-    FormSelectComponent
+    FormSelectComponent,
+    LoadingModalComponent,
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,8 @@ import { FormSelectComponent } from './components/form-select/form-select.compon
     ReactiveFormsModule,
     FormInputComponent,
     RadioGroupComponent,
-    FormSelectComponent
+    FormSelectComponent,
+    LoadingModalComponent
   ]
 })
 export class SharedModule { }
