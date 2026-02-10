@@ -4,6 +4,7 @@ import { Account } from '../../../core/models/account.model';
 import { SelectOption } from '../../../shared/components/form-select/form-select.component';
 import { AccountService } from '../../../core/services/account.service';
 import { Router } from '@angular/router';
+import { count } from 'rxjs';
 
 @Component({
   selector: 'app-fund-transfer',
@@ -17,6 +18,8 @@ export class FundTransferComponent {
   showSuccess: boolean = false;
   showError: boolean = false;
   message: string = '';
+  isRedirecting: boolean = false;
+  countdown: number = 3;
 
   fromAccountOptions: SelectOption[] = [];
   toAccountOptions: SelectOption[] = [];
@@ -145,14 +148,24 @@ export class FundTransferComponent {
       this.message = `Succesfully transferred $${amount}!`
       this.showSuccess = true;
       this.showError = false;
+      this.isRedirecting = true;
 
-      setTimeout(() => {
-        this.goBack()
-      }, 2000);
+      this.startCountdown();
     } catch(error: any){
       this.message = error.message || 'Transfer failed please try again.';
       this.showError = true;
       this.showSuccess = false;
     }
+  }
+
+  private startCountdown(){
+    const countdownInterval = setInterval(() => {
+      this.countdown--;
+
+      if(this.countdown === 0){
+        clearInterval(countdownInterval);
+        this.router.navigate(['/dashboard']);
+      }
+    }, 1000);
   }
 }
