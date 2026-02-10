@@ -15,7 +15,6 @@ import { count } from 'rxjs';
 export class FundTransferComponent {
   transferForm!: FormGroup;
   accounts: Account[] = [];
-  showSuccess: boolean = false;
   showError: boolean = false;
   message: string = '';
   isRedirecting: boolean = false;
@@ -146,7 +145,6 @@ export class FundTransferComponent {
       );
 
       this.message = `Succesfully transferred $${amount}!`
-      this.showSuccess = true;
       this.showError = false;
       this.isRedirecting = true;
 
@@ -154,7 +152,6 @@ export class FundTransferComponent {
     } catch(error: any){
       this.message = error.message || 'Transfer failed please try again.';
       this.showError = true;
-      this.showSuccess = false;
     }
   }
 

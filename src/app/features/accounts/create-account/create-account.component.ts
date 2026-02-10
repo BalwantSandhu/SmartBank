@@ -13,7 +13,6 @@ import { AccountService } from '../../../core/services/account.service';
 })
 export class CreateAccountComponent {
   accountForm!: FormGroup;
-  showSuccess: boolean = false;
   successMessage: string = '';
   isRedirecting: boolean = false;
   countdown: number = 3;
@@ -93,7 +92,6 @@ export class CreateAccountComponent {
       })
       
       this.successMessage = `Account ${newAccount.accountNumber} created successfully!`;
-      this.showSuccess = true;
       this.isRedirecting = true;
 
       this.accountForm.disable();

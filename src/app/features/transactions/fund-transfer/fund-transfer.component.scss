@@ -29,11 +29,6 @@
   padding: 24px;
 }
 
-// Use mixins for messages
-.success-message {
-  @include success-message;
-}
-
 .error-alert {
   @include error-message;
 }
