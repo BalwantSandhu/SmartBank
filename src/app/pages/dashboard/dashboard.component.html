@@ -143,7 +143,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let transaction of recentTransactions">
-                        <td>{{ transaction.transactionDate | date: 'short' }}</td>
+                        <td>{{ transaction.transactionDate | date: 'MMM d, y' }}</td>
                         <td>{{ getAccountName(transaction.fromAccountId) }}</td>
                         <td>{{ getAccountName(transaction.toAccountId) }}</td>
                         <td class="amount" [attr.aria-label]="'Amount: ' + (transaction.amount | customCurrency)">{{ transaction.amount | customCurrency}}</td>
