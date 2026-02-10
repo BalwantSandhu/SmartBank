@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Account } from '../../../core/models/account.model';
 import { SelectOption } from '../../../shared/components/form-select/form-select.component';
 import { AccountService } from '../../../core/services/account.service';
@@ -23,7 +23,11 @@ export class FundTransferComponent {
   fromAccountOptions: SelectOption[] = [];
   toAccountOptions: SelectOption[] = [];
 
-  constructor(private accountService: AccountService, private router: Router){}
+  constructor(
+    private accountService: AccountService, 
+    private router: Router, 
+    private formBuilder: FormBuilder
+  ){}
 
   ngOnInit(): void{
     this.loadAccounts();
@@ -56,23 +60,23 @@ export class FundTransferComponent {
   }
 
   private initializeForm(): void{
-    this.transferForm = new FormGroup({
-      fromAccountId: new FormControl('',[
+    this.transferForm = this.formBuilder.group({
+      fromAccountId: ['',[
         Validators.required
-      ]),
-      toAccountId: new FormControl('',[
+      ]],
+      toAccountId: ['',[
         Validators.required
-      ]),
-      amount: new FormControl('', [
+      ]],
+      amount: ['', [
         Validators.required,
         Validators.min(0.01),
         Validators.pattern(/^\d+(\.\d{1,2})?$/)
-      ]),
-      description: new FormControl('', [
+      ]],
+      description: ['', [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(100)
-      ])
+      ]]
     }, {validators: this.differentAccountValidator});
 
     this.transferForm.get('fromAccountId')?.valueChanges.subscribe(() => {

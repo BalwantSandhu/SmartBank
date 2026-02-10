@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RadioOption } from '../../../shared/components/radio-group/radio-group.component';
 import { AccountType } from '../../../core/models/account.model';
 import { Router } from '@angular/router';
@@ -30,42 +30,40 @@ export class CreateAccountComponent {
     }
   ];
 
-  constructor(private router: Router, private accountService: AccountService){}
+  constructor(
+    private router: Router, 
+    private accountService: AccountService, 
+    private formBuilder: FormBuilder
+  ){}
 
   ngOnInit(){
     this.initializeForm();
   }
 
   private initializeForm(): void{
-    this.accountForm = new FormGroup({
-      accountHolderName: new FormControl(
+    this.accountForm = this.formBuilder.group({
+      accountHolderName: [
         '',
-        {
-          validators: [
-            Validators.required,
-            Validators.minLength(3),
-            Validators.maxLength(50)
-          ]
-        }
-      ),
-      accountType: new FormControl(
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(50)
+        ]
+      ],
+      accountType: [
         AccountType.CHEQUING,
-        {
-          validators: [
-            Validators.required
-          ]
-        }
-      ),
-      balance: new FormControl(
+        [
+          Validators.required
+        ]
+      ],
+      balance: [
         0,
-        {
-          validators: [
-            Validators.required,
-            Validators.min(0),
-            Validators.pattern(/^\d+(\.\d{1,2})?$/)
-          ]
-        }
-      )
+        [
+          Validators.required,
+          Validators.min(0),
+          Validators.pattern(/^\d+(\.\d{1,2})?$/)
+        ]
+      ]
     });
   }
 
